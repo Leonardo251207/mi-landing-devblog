@@ -10,15 +10,15 @@
 <a href="https://mi-blog-dev.vercel.app/">
   <img src="https://img.shields.io/badge/Blog-DevBlog__-3df0a8?style=for-the-badge&logo=hashnode&logoColor=0b0f0e" alt="Blog">
 </a>
-<a href="https://github.com/Leonardo251207">
-  <img src="https://img.shields.io/badge/GitHub-Leonardo251207-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+<a href="https://leonardo251207.github.io/mi-landing-devblog/">
+  <img src="https://img.shields.io/badge/GitHub%20Pages-Live-222222?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Pages">
 </a>
 <img src="https://img.shields.io/badge/HTML%20·%20CSS%20·%20JS-vanilla-0b0f0e?style=for-the-badge&logo=javascript&logoColor=3df0a8" alt="HTML, CSS y JavaScript">
 
 # Portafolio DevBlog_
 
-**Landing personal de Leonardo Nucamendi Ruiz.** Proyectos, certificaciones y
-contacto, con un puente directo al blog técnico.
+**Landing personal de Leonardo Nucamendi Ruiz.** Hero, tecnologías, proyectos,
+certificaciones, últimas notas del blog y contacto.
 
 [Demo en Vercel](https://mi-landing-devblog.vercel.app/) ·
 [Blog](https://mi-blog-dev.vercel.app/) ·
@@ -28,57 +28,67 @@ contacto, con un puente directo al blog técnico.
 
 ---
 
-## Qué es este repo
+## Dos repositorios, un ecosistema
 
-Este repositorio contiene **solo la landing/portafolio**: la portada, la
-presentación, los proyectos, las certificaciones y el contacto.
-
-El blog, la consola CMS, el servicio de métricas y el generador de HTML estático
-viven en un repositorio aparte:
-
-- **Landing (este repo):** presentación personal y enlaces.
-- **[mi-blog-dev](https://github.com/Leonardo251207/mi-blog-dev):** blog dinámico,
-  CMS API en FastAPI, métricas con GraphQL y generador de páginas estáticas.
-
-La separación permite desplegar y versionar cada sitio por su cuenta sin tocar
-el otro.
-
-## Demo en vivo
-
-| Sitio | URL |
+| Repositorio | Contenido |
 |---|---|
-| Portafolio (Vercel) | <https://mi-landing-devblog.vercel.app/> |
-| Portafolio (GitHub Pages) | <https://leonardo251207.github.io/mi-landing-devblog/> |
-| Blog + CMS | <https://mi-blog-dev.vercel.app/> |
-| Repositorio del blog | <https://github.com/Leonardo251207/mi-blog-dev> |
+| **mi-landing-devblog** (este) | Portafolio: hero, tecnologías, proyectos, certificaciones, notas y contacto. |
+| **[mi-blog-dev](https://github.com/Leonardo251207/mi-blog-dev)** | Blog, consola CMS, CMS API, métricas con GraphQL y generador estático. |
+
+La landing enlaza al blog y el blog enlaza a la landing. Cada sitio se despliega
+por separado, pero comparten el mismo CMS.
+
+## Contenido editable desde el CMS
+
+La landing **no está hardcodeada del todo**: su contenido se administra desde la
+consola del blog.
+
+- `landing.js` pide `GET /api/v1/landing` al CMS y aplica el contenido publicado
+  (hero, secciones, proyectos, certificaciones y contacto).
+- La publicidad se carga desde el mismo endpoint y solo se muestra si está
+  activa.
+- Si el CMS no responde o el origen no está permitido por CORS, la página
+  conserva el HTML estático y sigue siendo navegable.
+- Las últimas notas también se piden al CMS (`GET /api/v1/posts`) y enlazan al
+  blog.
+
+Para editar el contenido:
+
+1. Abre la consola: <https://mi-blog-dev.vercel.app/admin.html>.
+2. Pestaña **Landing y publicidad**.
+3. Guarda el borrador y pulsa **Publicar landing**.
 
 ## Secciones
 
 | Sección | Contenido |
 |---|---|
-| **Hero** | Nombre, rol, propuesta y foto de perfil. |
+| **Hero** | Nombre, rol, propuesta, foto y CTA a proyectos/blog. |
 | **Tecnologías** | C++, Java, JavaScript, Python, HTML y CSS. |
 | **Proyectos** | Lawpocket, Math & English Quest y Marketplace Universitario. |
+| **Publicidad** | Bloque opcional administrado desde el CMS. |
 | **Certificaciones** | PDFs de Código Facilito, AWS Academy, Google y Cisco. |
-| **Blog** | Tarjetas con las últimas notas y enlace al blog completo. |
+| **Blog** | Últimas notas del CMS con enlace al blog completo. |
 | **Contacto** | GitHub, LinkedIn y correo con copia al portapapeles. |
 
 ## Stack
 
-`HTML5` · `CSS3` · `JavaScript vanilla` · `Vercel` · `GitHub Pages` ·
-`GitHub Actions`
+`HTML5` · `CSS3` · `JavaScript vanilla` · `CMS API (FastAPI)` · `Vercel` ·
+`GitHub Pages` · `GitHub Actions`
 
-Sin frameworks, sin build: son archivos estáticos que se sirven tal cual.
+Sin frameworks ni build: son archivos estáticos que se sirven tal cual.
 
 ## Estructura
 
 ```text
 mi-landing-devblog/
-├── index.html            # Landing completa
+├── index.html            # Landing editable (data-landing y publicidad)
 ├── styles.css            # Sistema visual retro-tech
 ├── script.js             # Menú, scroll reveal y copia del correo
-├── metrics-config.js     # Configuración pública del beacon
-├── metrics.js            # Carga del colector de métricas
+├── landing.js            # Aplica contenido y publicidad del CMS
+├── notes.js              # Últimas notas del blog
+├── api.js                # Cliente de la API del CMS
+├── api-config.js         # URLs y tokens públicos (local/producción)
+├── metrics.js            # Beacon del colector de métricas
 ├── assets/               # Foto de perfil y certificados PDF
 ├── docs/banner.svg       # Banner del README
 └── .github/workflows/    # Despliegue en GitHub Pages
@@ -89,13 +99,17 @@ mi-landing-devblog/
 No necesita instalación. Desde la raíz del repo:
 
 ```powershell
-python -m http.server 5500
+python -m http.server 5599
 ```
 
-Abre <http://127.0.0.1:5500/>.
+Abre <http://127.0.0.1:5599/>.
 
-> En local, el beacon de métricas apunta a `http://127.0.0.1:8000`. Si el
-> colector no está corriendo, el sitio funciona igual: solo no registra visitas.
+Para ver el contenido dinámico y la publicidad, levanta también el CMS del repo
+[`mi-blog-dev`](https://github.com/Leonardo251207/mi-blog-dev) en
+`127.0.0.1:8080` y el colector de métricas en `127.0.0.1:8000`.
+
+> Si los servicios locales no están corriendo, la landing usa su HTML estático y
+> no registra métricas.
 
 ## Despliegue
 
@@ -108,20 +122,30 @@ Abre <http://127.0.0.1:5500/>.
 
 ### GitHub Pages
 
-El workflow [`.github/workflows/pages.yml`](.github/workflows/pages.yml)
-publica la raíz del repositorio en cada push a `main`. Solo hay que activar
+El workflow [`.github/workflows/pages.yml`](.github/workflows/pages.yml) publica
+la raíz del repositorio en cada push a `main`. Solo hay que activar
 **Settings → Pages → Source: GitHub Actions**.
+
+### CORS del CMS
+
+El CMS debe permitir el origen de la landing. En
+`devblog-cms-leonardo → Environment → CMS_CORS_ORIGINS` agrega:
+
+```text
+https://mi-landing-devblog.vercel.app
+```
+
+`https://leonardo251207.github.io` ya está permitido para GitHub Pages.
 
 ## Mantenimiento
 
-- El contenido editable (proyectos, certificaciones, enlaces) está en
-  `index.html`.
-- Los estilos globales viven en `styles.css`; los colores y tipografías se
-  controlan con variables CSS en `:root`.
-- Si cambia la URL del blog, actualízala en `index.html` (nav, hero, sección de
-  blog y footer).
-- La landing envía pageviews al mismo sitio `devblog` del colector de métricas,
-  así que el tráfico de ambos repos aparece junto en GraphQL.
+- El HTML de `index.html` es el respaldo estático y la plantilla que `landing.js`
+  actualiza.
+- Los colores y tipografías se controlan con variables CSS en `:root`.
+- Si cambia la URL del blog, actualízala en `index.html`, `api-config.js`
+  (`BLOG_BASE_URL`) y este README.
+- La landing envía pageviews al mismo sitio `devblog` del colector, así que el
+  tráfico de ambos repos aparece junto en GraphQL.
 
 ## Autor
 
