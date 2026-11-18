@@ -122,8 +122,8 @@ Para ver el contenido dinámico y la publicidad, levanta también el CMS del rep
 
 ### GitHub Pages
 
-El workflow [`.github/workflows/pages.yml`](.github/workflows/pages.yml) publica
-la raíz del repositorio en cada push a `main`. Solo hay que activar
+El workflow [`.github/workflows/static.yml`](.github/workflows/static.yml)
+publica la raíz del repositorio en cada push a `main`. Solo hay que activar
 **Settings → Pages → Source: GitHub Actions**.
 
 ### CORS del CMS
