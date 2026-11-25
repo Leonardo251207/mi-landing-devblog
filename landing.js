@@ -412,9 +412,8 @@
       renderVideos(content.videos);
       renderCertifications(content.certifications);
       renderAd(data.ad);
-    } catch (error) {
+    } catch {
       // El HTML estático sigue siendo la fuente de respaldo.
-      console.warn("No se pudo cargar la landing desde el CMS:", error);
     }
   }
 

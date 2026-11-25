@@ -402,7 +402,6 @@
       const data = await API.publicApi.getSiteLanding(siteId);
       renderSite(data.site, data.content || {});
     } catch (error) {
-      console.warn("No se pudo cargar el sitio:", error);
       renderError(error);
     }
   }

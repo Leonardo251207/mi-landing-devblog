@@ -40,8 +40,7 @@ por separado, pero comparten el mismo CMS.
 
 ## Contenido editable desde el CMS
 
-La landing **no está hardcodeada del todo**: su contenido se administra desde la
-consola del blog.
+El contenido de la landing se administra desde la consola del blog.
 
 - `landing.js` pide `GET /api/v1/sites/portfolio/landing` al CMS (con respaldo en
   `GET /api/v1/landing`) y aplica el contenido publicado, el tema del sitio y la
