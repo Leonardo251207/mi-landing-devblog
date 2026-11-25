@@ -109,9 +109,10 @@ El mismo repo sirve landings adicionales con `sitio.html?site={slug}`:
   genera y publica automáticamente. No se reconstruye el CMS ni el renderer.
 
 Cada sitio aplica su propio tema (acento, fondo, superficie, texto y fuentes) y
-puede incluir **videos** por URL: MP4/WebM directos, YouTube o Vimeo, con póster,
-subtítulos VTT y CTA. Los archivos de video deben estar alojados en un servicio
-externo o CDN; el CMS guarda la URL.
+puede incluir **videos** por URL o subiendo un archivo al CMS: MP4/WebM/MOV,
+YouTube o Vimeo, con póster, subtítulos VTT y CTA. En producción los archivos
+se guardan en MongoDB GridFS y se sirven desde `/api/v1/media/{id}` (25 MB por
+archivo); para videos largos conviene YouTube/Vimeo o un CDN.
 
 > Los dominios personalizados de clientes requieren agregar el origen exacto a
 > `CMS_CORS_ORIGINS` y `CORS_ORIGINS` en Render.
