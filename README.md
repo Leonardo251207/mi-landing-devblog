@@ -43,8 +43,9 @@ por separado, pero comparten el mismo CMS.
 La landing **no está hardcodeada del todo**: su contenido se administra desde la
 consola del blog.
 
-- `landing.js` pide `GET /api/v1/landing` al CMS y aplica el contenido publicado
-  (hero, secciones, proyectos, videos, certificaciones y contacto).
+- `landing.js` pide `GET /api/v1/sites/portfolio/landing` al CMS (con respaldo en
+  `GET /api/v1/landing`) y aplica el contenido publicado, el tema del sitio y la
+  publicidad activa (hero, secciones, proyectos, videos, certificaciones y contacto).
 - La publicidad se carga desde el mismo endpoint y solo se muestra si está
   activa.
 - Si el CMS no responde o el origen no está permitido por CORS, la página

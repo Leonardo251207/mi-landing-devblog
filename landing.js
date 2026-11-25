@@ -33,6 +33,22 @@
     return raw;
   }
 
+  function applyTheme(theme = {}) {
+    const root = document.documentElement;
+    if (theme.accent) root.style.setProperty("--green", theme.accent);
+    if (theme.background) root.style.setProperty("--bg", theme.background);
+    if (theme.surface) {
+      root.style.setProperty("--bg-soft", theme.surface);
+      root.style.setProperty("--panel", theme.surface);
+    }
+    if (theme.text) root.style.setProperty("--text", theme.text);
+    if (theme.muted) root.style.setProperty("--muted", theme.muted);
+    if (theme.body_font) {
+      const clean = String(theme.body_font).replace(/^['"]|['"]$/g, "");
+      root.style.setProperty("--sans", `'${clean}', system-ui, sans-serif`);
+    }
+  }
+
   function applyText(content) {
     $$("[data-landing]").forEach((element) => {
       const value = getPath(content, element.dataset.landing);
@@ -376,7 +392,13 @@
 
   async function load() {
     try {
-      const data = await API.publicApi.getLanding();
+      let data;
+      try {
+        data = await API.publicApi.getSiteLanding("portfolio");
+        if (data.site?.theme) applyTheme(data.site.theme);
+      } catch {
+        data = await API.publicApi.getLanding();
+      }
       const content = data.content || {};
       applyText(content);
       applyLinks(content);
