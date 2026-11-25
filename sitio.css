@@ -287,3 +287,13 @@
   color: var(--dim);
   overflow-wrap: anywhere;
 }
+
+/* Radio configurable por tema */
+.card,
+.tech,
+.frame,
+.contact__links,
+.site-video,
+.site-hero__panel {
+  border-radius: var(--radius, 0);
+}

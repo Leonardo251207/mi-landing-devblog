@@ -47,6 +47,9 @@
       const clean = String(theme.body_font).replace(/^['"]|['"]$/g, "");
       root.style.setProperty("--sans", `'${clean}', system-ui, sans-serif`);
     }
+    if (theme.radius !== undefined && theme.radius !== null) {
+      root.style.setProperty("--radius", `${Number(theme.radius) || 0}px`);
+    }
   }
 
   function applyText(content) {
