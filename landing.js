@@ -218,6 +218,101 @@
     cards.forEach((card, index) => updateCertification(card, certifications[index]));
   }
 
+  function videoEmbed(url) {
+    const youtube = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{6,})/i);
+    if (youtube) {
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube.com/embed/${youtube[1]}`;
+      iframe.title = "Video de YouTube";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      iframe.loading = "lazy";
+      return iframe;
+    }
+    const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/i);
+    if (vimeo) {
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://player.vimeo.com/video/${vimeo[1]}`;
+      iframe.title = "Video de Vimeo";
+      iframe.allow = "autoplay; fullscreen; picture-in-picture";
+      iframe.allowFullscreen = true;
+      iframe.loading = "lazy";
+      return iframe;
+    }
+    const video = document.createElement("video");
+    video.controls = true;
+    video.preload = "metadata";
+    video.playsInline = true;
+    video.src = url;
+    return video;
+  }
+
+  function renderVideos(videos) {
+    const section = $("[data-landing-videos]");
+    const grid = $("[data-landing-video-grid]");
+    if (!section || !grid) return;
+    const items = Array.isArray(videos) ? videos : [];
+    if (!items.length) {
+      section.hidden = true;
+      $$("[data-nav-videos]").forEach((item) => (item.hidden = true));
+      return;
+    }
+
+    const label = $("[data-landing='sections.videos.label']");
+    const title = $("[data-landing='sections.videos.title']");
+    if (label && !label.textContent.trim()) label.textContent = "Multimedia";
+    if (title && !title.textContent.trim()) title.textContent = "Videos";
+
+    grid.replaceChildren();
+    items.forEach((item) => {
+      const url = safeHref(item.url);
+      if (!url) return;
+      const card = document.createElement("article");
+      card.className = "site-video";
+      const media = document.createElement("div");
+      const aspect = item.aspect === "9:16" ? "is-9-16" : item.aspect === "1:1" ? "is-1-1" : "is-16-9";
+      media.className = `site-video__media ${aspect}`;
+      const embed = videoEmbed(url);
+      if (embed.tagName === "VIDEO") {
+        const poster = safeHref(item.poster);
+        if (poster) embed.poster = poster;
+        if (item.captions_url) {
+          const track = document.createElement("track");
+          track.kind = "captions";
+          track.label = "Español";
+          track.srclang = "es";
+          track.src = safeHref(item.captions_url);
+          track.default = true;
+          embed.append(track);
+        }
+      }
+      media.append(embed);
+      const body = document.createElement("div");
+      body.className = "site-video__body";
+      const title = document.createElement("h3");
+      title.textContent = item.title || "Video";
+      body.append(title);
+      if (item.description) {
+        const description = document.createElement("p");
+        description.textContent = item.description;
+        body.append(description);
+      }
+      if (item.cta_label) {
+        const cta = document.createElement("a");
+        cta.className = "card__link";
+        cta.href = safeHref(item.cta_url || "#contacto");
+        cta.textContent = `${item.cta_label} ↗`;
+        body.append(cta);
+      }
+      card.append(media, body);
+      grid.append(card);
+    });
+
+    const hasVideos = Boolean(grid.childNodes.length);
+    section.hidden = !hasVideos;
+    $$("[data-nav-videos]").forEach((item) => (item.hidden = !hasVideos));
+  }
+
   function renderAd(ad) {
     const section = $("[data-landing-ad]");
     if (!section) return;
@@ -289,6 +384,7 @@
       applyEmail(content);
       renderTechnologies(content.technologies);
       renderProjects(content.projects);
+      renderVideos(content.videos);
       renderCertifications(content.certifications);
       renderAd(data.ad);
     } catch (error) {

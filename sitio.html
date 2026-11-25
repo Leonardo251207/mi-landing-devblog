@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sitio — DevBlog_</title>
+  <meta name="description" content="Landing administrable con DevBlog_ CMS.">
+  <meta name="theme-color" content="#050807">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050807'/%3E%3Crect x='7' y='23' width='18' height='3' fill='%233df0a8'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="sitio.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="site-page" id="top">
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="logo" href="#top" aria-label="DevBlog, ir al inicio">DevBlog<span>_</span></a>
+      <button class="nav__toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-menu"><span></span></button>
+      <ul class="nav__links" id="site-menu">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#videos">Videos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="https://mi-blog-dev.vercel.app/">Blog <span aria-hidden="true">↗</span></a></li>
+      </ul>
+      <span class="nav__status" id="site-status"><i></i>Sitio administrado</span>
+    </div>
+  </header>
+
+  <main id="site-main">
+    <p id="site-state" class="site-state">Cargando sitio…</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__row">
+        <a class="logo" href="https://mi-blog-dev.vercel.app/">DevBlog<span>_</span></a>
+        <p id="site-footer-text">Landing administrada con DevBlog_ CMS.</p>
+        <nav class="site-footer__links" aria-label="Redes">
+          <a href="https://mi-blog-dev.vercel.app/">Blog</a>
+          <a href="https://mi-landing-devblog.vercel.app/">Portafolio</a>
+        </nav>
+      </div>
+      <div class="footer-bar"><span>© 2026 · Hecho con intención</span></div>
+    </div>
+  </footer>
+
+  <noscript>
+    <p class="site-state">Este sitio necesita JavaScript para cargar el contenido administrado.</p>
+  </noscript>
+
+  <script src="api-config.js?v=20261125"></script>
+  <script src="api.js?v=20261125"></script>
+  <script src="sitio.js?v=20261125"></script>
+</body>
+</html>

@@ -104,6 +104,11 @@
       method: "POST",
     }),
     getLanding: () => request("/landing", { cache: "no-store" }),
+    listSites: () => request("/sites", { cache: "no-store" }),
+    getSiteLanding: (siteId) => request(
+      `/sites/${encodeURIComponent(siteId)}/landing`,
+      { cache: "no-store" }
+    ),
   };
 
   const adminApi = {

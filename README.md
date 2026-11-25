@@ -44,7 +44,7 @@ La landing **no está hardcodeada del todo**: su contenido se administra desde l
 consola del blog.
 
 - `landing.js` pide `GET /api/v1/landing` al CMS y aplica el contenido publicado
-  (hero, secciones, proyectos, certificaciones y contacto).
+  (hero, secciones, proyectos, videos, certificaciones y contacto).
 - La publicidad se carga desde el mismo endpoint y solo se muestra si está
   activa.
 - Si el CMS no responde o el origen no está permitido por CORS, la página
@@ -81,10 +81,13 @@ Sin frameworks ni build: son archivos estáticos que se sirven tal cual.
 
 ```text
 mi-landing-devblog/
-├── index.html            # Landing editable (data-landing y publicidad)
+├── index.html            # Landing profesional editable
+├── sitio.html            # Renderer multi-sitio para landings adicionales
 ├── styles.css            # Sistema visual retro-tech
+├── sitio.css             # Estilos de videos y renderer multi-sitio
 ├── script.js             # Menú, scroll reveal y copia del correo
-├── landing.js            # Aplica contenido y publicidad del CMS
+├── landing.js            # Aplica contenido y publicidad del portafolio
+├── sitio.js              # Carga un sitio por ?site=slug
 ├── notes.js              # Últimas notas del blog
 ├── api.js                # Cliente de la API del CMS
 ├── api-config.js         # URLs y tokens públicos (local/producción)
@@ -93,6 +96,24 @@ mi-landing-devblog/
 ├── docs/banner.svg       # Banner del README
 └── .github/workflows/    # Despliegue en GitHub Pages
 ```
+
+## Multi-sitio y video
+
+El mismo repo sirve landings adicionales con `sitio.html?site={slug}`:
+
+- **Portafolio:** `/` (landing profesional).
+- **Landing del proyecto:** `/sitio.html?site=devblog-project`.
+- **Sitio del blog:** `mi-blog-dev.vercel.app` (hero controlado por el CMS).
+- **Clientes nuevos:** crea el sitio en **CMS → Sitios**; la landing base se
+  genera y publica automáticamente. No se reconstruye el CMS ni el renderer.
+
+Cada sitio aplica su propio tema (acento, fondo, superficie, texto y fuentes) y
+puede incluir **videos** por URL: MP4/WebM directos, YouTube o Vimeo, con póster,
+subtítulos VTT y CTA. Los archivos de video deben estar alojados en un servicio
+externo o CDN; el CMS guarda la URL.
+
+> Los dominios personalizados de clientes requieren agregar el origen exacto a
+> `CMS_CORS_ORIGINS` y `CORS_ORIGINS` en Render.
 
 ## Ejecutar en local
 

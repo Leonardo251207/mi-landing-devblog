@@ -14,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="sitio.css">
   <script>document.documentElement.classList.add('js')</script>
 </head>
 <body id="top">
@@ -28,6 +29,7 @@
       <ul class="nav__links" id="menu">
         <li><a href="#tecnologias">Tecnologías</a></li>
         <li><a href="#proyectos">Proyectos</a></li>
+        <li data-nav-videos><a href="#videos">Videos</a></li>
         <li><a href="#certificaciones">Certificaciones</a></li>
         <li><a href="https://mi-blog-dev.vercel.app/">Blog <span aria-hidden="true">↗</span></a></li>
         <li><a href="#contacto">Contacto</a></li>
@@ -169,6 +171,17 @@
             <a class="btn btn--solid ad__cta" data-ad-cta href="#contacto"></a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ===== Multimedia ===== -->
+    <section class="section" id="videos" data-landing-videos hidden aria-labelledby="t-videos">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="mono-label"><b>+</b><span data-landing="sections.videos.label">Multimedia</span></p>
+          <h2 class="title" id="t-videos" data-landing="sections.videos.title">Videos</h2>
+        </div>
+        <div class="site-videos" data-landing-video-grid></div>
       </div>
     </section>
 
@@ -348,10 +361,10 @@
     </section>
   </main>
 
-  <script src="api-config.js"></script>
+  <script src="api-config.js?v=20261125"></script>
   <script src="metrics.js"></script>
-  <script src="api.js"></script>
-  <script src="landing.js"></script>
+  <script src="api.js?v=20261125"></script>
+  <script src="landing.js?v=20261125"></script>
   <script src="notes.js"></script>
   <script src="script.js"></script>
 </body>
